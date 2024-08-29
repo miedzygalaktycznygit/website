@@ -32,7 +32,7 @@ def logout():
     return redirect(url_for('auth.login'))
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
-def sing_up():
+def sign_up():
     if request.method == 'POST':
         nickName = request.form.get('nickName')
         password1 = request.form.get('password1')
