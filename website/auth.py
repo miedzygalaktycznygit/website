@@ -41,20 +41,21 @@ def sign_up():
         user = User.query.filter_by(nickName=nickName).first()
 
         if user:
-            flash('User already exist', category='error')
+            flash('User already exists', category='error')
         elif len(nickName) < 3:
             flash('Your Nickname must be at least 4 characters long', category='error')
         elif password1 != password2:
-            flash('Your second password is diffrent than first', category='error')
+            flash('Your second password is different from the first', category='error')
         elif len(password1) < 4:
             flash('Your password must be at least 4 characters long', category='error')
         else:
             new_user = User(nickName=nickName, password=generate_password_hash(password1, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
-            flash('Account created!', category='succes')
-            login_user(user)
-            return redirect(url_for('views.home'))
+            flash('Account created!', category='success')
+            login_user(new_user)  # Zaloguj nowego użytkownika
+            return redirect(url_for('auth.login'))  # Przekieruj na stronę logowania po utworzeniu konta
 
     return render_template("sign_up.html", user=current_user)
+
 
