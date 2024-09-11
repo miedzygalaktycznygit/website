@@ -14,3 +14,15 @@ class User(db.Model, UserMixin):
     nickName = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     notes = db.relationship('Note')
+
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150), unique=True, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    calories = db.Column(db.Float, nullable=False)
+    protein = db.Column(db.Float, nullable=False)
+    fat = db.Column(db.Float, nullable=False)
+    carbs = db.Column(db.Float, nullable=False)
+    fiber = db.Column(db.Float, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Relacja z użytkownikiem
+    created_at = db.Column(db.DateTime(timezone=True), default=func.now())

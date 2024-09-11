@@ -3,96 +3,96 @@
 {% block title %} Home Page {% endblock %}
 
 {% block content %}
-<!--
-<h1 align="center">Notes</h1>
-<ul class="list-group list-group-flush" id="notes">
-    {% for note in user.notes %}
-    <li class="list-group-item">{{ note.data }}
-        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </li>
-    {% endfor %}
-</ul>
-<form method="POST">
-    <textarea name="note" id="note" class="form-control"></textarea>
-    <br />
-    <div align="center">
-        <button type="submit" class="btn btn-primary">Add Note</button>
-    </div>
-</form>
--->
-<section class="container" style="width: 375px; height: 520px; background-color: rgb(255, 255, 255);border-radius: 15px; box-shadow: 7px 7px 30px rgba(0,0,0,0.06); padding: 20px; overflow-y: scroll;">
-    <form style="width: 100%; border: 1px solid rgb(82, 74, 235); border-radius: 4px; display: flex; flex-direction: row; align-items: center;">
-        <i class="fa fa-search" style="font-size:24px; padding-left: 10px;"></i>
-        <input type="text" name="" id="search-item" placeholder="Search products" onkeyup="search()" style="border: none; outline: none; box-shadow: none; width: 100%; font-size: 16px; font-weight: 600; padding: 8px 10px;"/>
-    </form>
-    <div class="product-list" id="product-list" style="padding: 20px 0; flex-direction: column; gap: 15px">
-        <div class="product" style="display: flex; align-items: center; cursor: pointer; justify-content: flex-start;">
-            <img src="{{ url_for('static', filename='apple.jpg') }}" alt="Apple" style="width: 70px; height: auto; object-fit: cover; border-radius: 5px;">
-            <div class="p-details" style="padding-left: 15px;">
-                <h2 style="font-size: 20px; color: black; margin: 0;">Apple</h2>
-                <h3 style="font-size: 18px; color: black; margin: 0;">Kcal 20</h3>
-            </div>
-        </div>
-        <div class="product" style="display: flex; align-items: center; cursor: pointer; padding-bottom: 15px; justify-content: flex-start;">
-            <img src="{{ url_for('static', filename='awokado.jpg') }}" alt="Apple" style="width: 70px; height: 70px; object-fit: cover; border-radius: 5px;">
-            <div class="p-details" style="padding-left: 15px;">
-                <h2 style="font-size: 20px; color: black;">awokado</h2>
-                <h3 style="font-size: 18px; color: black;">Kcal 20</h3>
-            </div>
-        </div>
-        <div class="product" style="display: flex; align-items: center; cursor: pointer; padding-bottom: 15px; justify-content: flex-start;">
-            <img src="{{ url_for('static', filename='banan.jpg') }}" alt="Apple" style="width: 70px; height: 70px; object-fit: cover; border-radius: 5px;">
-            <div class="p-details" style="padding-left: 15px;">
-                <h2 style="font-size: 20px; color: black;">banan</h2>
-                <h3 style="font-size: 18px; color: black;">Kcal 220</h3>
-            </div>
-        </div>
-        <div class="product" style="display: flex; align-items: center; cursor: pointer; padding-bottom: 15px; justify-content: flex-start;">
-            <img src="{{ url_for('static', filename='owoc.jpg') }}" alt="Apple" style="width: 70px; height: 70px; object-fit: cover; border-radius: 5px;">
-            <div class="p-details" style="padding-left: 15px;">
-                <h2 style="font-size: 20px; color: black;">owoc</h2>
-                <h3 style="font-size: 18px; color: black;">Kcal 230</h3>
-            </div>
-        </div>
-        <div class="product" style="display: flex; align-items: center; cursor: pointer; padding-bottom: 15px; justify-content: flex-start;">
-            <img src="{{ url_for('static', filename='wisnia.jpg') }}" alt="Apple" style="width: 70px; height: 70px; object-fit: cover; border-radius: 5px;">
-            <div class="p-details" style="padding-left: 15px;">
-                <h2 style="font-size: 20px; color: black;">wisnia</h2>
-                <h3 style="font-size: 18px; color: black;">Kcal 250</h3>
-            </div>
-        </div>
-        <div class="product" style="display: flex; align-items: center; cursor: pointer; padding-bottom: 15px; justify-content: flex-start;">
-            <img src="{{ url_for('static', filename='wisnia.jpg') }}" alt="Apple" style="width: 70px; height: 70px; object-fit: cover; border-radius: 5px;">
-            <div class="p-details" style="padding-left: 15px;">
-                <h2 style="font-size: 20px; color: black;">Apple</h2>
-                <h3 style="font-size: 18px; color: black;">Kcal 208</h3>
-            </div>
-        </div>
-        <div class="product" style="display: flex; align-items: center; cursor: pointer; padding-bottom: 15px; justify-content: flex-start;">
-            <img src="{{ url_for('static', filename='wisnia.jpg') }}" alt="Apple" style="width: 70px; height: 70px; object-fit: cover; border-radius: 5px;">
-            <div class="p-details" style="padding-left: 15px;">
-                <h2 style="font-size: 20px; color: black;">Apple</h2>
-                <h3 style="font-size: 18px; color: black;">Kcal 20</h3>
-            </div>
-        </div>
-        <div class="product" style="display: flex; align-items: center; cursor: pointer; padding-bottom: 15px; justify-content: flex-start;">
-            <img src="{{ url_for('static', filename='wisnia.jpg') }}" alt="Apple" style="width: 70px; height: 70px; object-fit: cover; border-radius: 5px;">
-            <div class="p-details" style="padding-left: 15px;">
-                <h2 style="font-size: 20px; color: black;">Apple</h2>
-                <h3 style="font-size: 18px; color: black;">Kcal 20</h3>
-            </div>
-        </div>
-        <div class="product" style="display: flex; align-items: center; cursor: pointer; padding-bottom: 15px; justify-content: flex-start;">
-            <img src="{{ url_for('static', filename='wisnia.jpg') }}" alt="Apple" style="width: 70px; height: 70px; object-fit: cover; border-radius: 5px;">
-            <div class="p-details" style="padding-left: 15px;">
-                <h2 style="font-size: 20px; color: black;">Apple</h2>
-                <h3 style="font-size: 18px; color: black;">Kcal 20</h3>
-            </div>
+<div class="container">
+    <h1 class="text-center">Search for Products</h1>
+    
+    <!-- Search Bar -->
+    <div class="input-group mb-3">
+        <input type="text" id="search-input" class="form-control" placeholder="Search for products..." onkeyup="showSuggestions()" onclick="showSuggestions()">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" onclick="addProduct()">Add Product</button>
         </div>
     </div>
-</section>
 
+    <!-- Suggestions List -->
+    <ul id="suggestions-list" class="list-group"></ul>
+
+    <!-- Product List -->
+    <h3>Selected Products:</h3>
+    <ul id="product-list" class="list-group">
+        <!-- Lista dodanych produktów -->
+    </ul>
+</div>
+
+<script>
+    let selectedProducts = [];
+
+    function showSuggestions() {
+        const query = document.getElementById('search-input').value;
+
+        fetch(`/search?q=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                const suggestionsList = document.getElementById('suggestions-list');
+                suggestionsList.innerHTML = ''; // Wyczyść listę sugestii
+
+                // Pokaż maksymalnie 5 najlepszych dopasowań
+                const maxSuggestions = 5;
+                const limitedData = data.slice(0, maxSuggestions);
+
+                limitedData.forEach(product => {
+                    const li = document.createElement('li');
+                    li.className = 'list-group-item';
+                    li.innerHTML = `${product.name} - Price: $${product.price}, Calories: ${product.calories}, Protein: ${product.protein}g`;
+                    li.onclick = () => selectProduct(product);
+                    suggestionsList.appendChild(li);
+                });
+            });
+    }
+
+    function selectProduct(product) {
+        // Sprawdzenie, czy produkt nie został już dodany
+        if (!selectedProducts.some(p => p.name === product.name)) {
+            selectedProducts.push(product);
+            updateProductList();
+        }
+        document.getElementById('search-input').value = '';  // Wyczyść pole wyszukiwania
+        document.getElementById('suggestions-list').innerHTML = '';  // Wyczyść sugestie
+    }
+
+    function updateProductList() {
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = ''; // Wyczyść bieżącą listę
+
+        selectedProducts.forEach((product, index) => {
+            const li = document.createElement('li');
+            li.className = 'list-group-item d-flex justify-content-between align-items-center';
+            li.innerHTML = `${product.name} - Price: $${product.price}, Calories: ${product.calories}, Protein: ${product.protein}g`;
+
+            // Dodanie przycisku "Usuń"
+            const removeButton = document.createElement('button');
+            removeButton.className = 'btn btn-danger btn-sm';
+            removeButton.textContent = 'Usuń';
+            removeButton.onclick = () => removeProduct(index);
+            li.appendChild(removeButton);
+
+            productList.appendChild(li);
+        });
+    }
+
+    function removeProduct(index) {
+        selectedProducts.splice(index, 1); // Usuń produkt z listy
+        updateProductList(); // Zaktualizuj widok listy
+    }
+
+    // Ukryj sugestie, gdy użytkownik kliknie poza polem wyszukiwania
+    document.addEventListener('click', function(event) {
+        const searchInput = document.getElementById('search-input');
+        const suggestionsList = document.getElementById('suggestions-list');
+        if (!searchInput.contains(event.target) && !suggestionsList.contains(event.target)) {
+            suggestionsList.innerHTML = '';  // Ukryj sugestie
+        }
+    });
+</script>
 
 {% endblock %}
