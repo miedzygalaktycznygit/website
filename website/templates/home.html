@@ -24,6 +24,143 @@
     </ul>
 </div>
 
+<button class="btn btn-primary mt-3" onclick="findRecipes()">Znajdź przepis</button>
+
+<!-- Wyniki przepisów -->
+<div id="recipes-list" class="mt-3 row">
+    <!-- Wyniki przepisów pojawią się tutaj -->
+</div>
+
+<style>
+    .recipe-card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        border-radius: 15px; 
+        overflow: hidden; 
+        background-color: #fff; 
+        padding: 10px; 
+        max-width: 300px; 
+        margin: auto; 
+    }
+
+    .recipe-card:hover {
+        transform: translateY(-5px); 
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+    }
+
+    .recipe-card img {
+        width: 100%; 
+        height: 180px; 
+        object-fit: cover; 
+        border-radius: 10px; 
+    }
+
+    .recipe-card .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .recipe-card .card-text {
+        font-size: 0.9rem; 
+        color: #6c757d; 
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .recipe-card .btn {
+        display: block;
+        margin: auto;
+        font-size: 0.85rem; 
+    }
+
+    #recipes-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around; 
+    }
+
+    .col-sm-12, .col-md-6, .col-lg-4 {
+        display: flex;
+        justify-content: center;
+    }
+
+    #product-list li {
+        font-size: 0.9rem;
+    }
+
+
+    #suggestions-list li {
+        cursor: pointer;
+    }
+
+    #suggestions-list li:hover {
+        background-color: #f8f9fa; 
+    }
+</style>
+
+<script>
+    function findRecipes() {
+        const products = Array.from(document.querySelectorAll('#product-list li')).map(li => li.textContent.split(' - ')[0].trim());
+
+        const params = new URLSearchParams();
+        products.forEach(product => params.append('products', product));
+
+        fetch(`/find_recipes?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                const recipesList = document.getElementById('recipes-list');
+                recipesList.innerHTML = '';  // Wyczyść poprzednie wyniki
+
+                if (data.error) {
+                    recipesList.innerHTML = `<p>${data.error}</p>`;
+                } else {
+                    data.forEach(recipe => {
+                        const recipeItem = `
+                            <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                                <div class="card h-100 recipe-card">
+                                    <img src="${recipe.image}" class="card-img-top" alt="${recipe.label}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${recipe.label}</h5>
+                                        <p class="card-text">Diety: ${recipe.dietLabels.join(', ')}</p>
+                                        <a href="${recipe.url}" class="btn btn-primary btn-sm" target="_blank">Zobacz przepis</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        recipesList.innerHTML += recipeItem;
+                    });
+                }
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/initial_recipes')
+            .then(response => response.json())
+            .then(data => {
+                const recipesList = document.getElementById('recipes-list');
+                recipesList.innerHTML = '';  // Wyczyść poprzednie wyniki
+
+                data.forEach(recipe => {
+                    const recipeItem = `
+                        <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100 recipe-card">
+                                <img src="${recipe.image}" class="card-img-top" alt="${recipe.label}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${recipe.label}</h5>
+                                    <p class="card-text">Diety: ${recipe.dietLabels.join(', ')}</p>
+                                    <a href="${recipe.url}" class="btn btn-primary btn-sm" target="_blank">Zobacz przepis</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    recipesList.innerHTML += recipeItem;
+                });
+            });
+    });
+</script>
+
 <script>
     let selectedProducts = [];
 

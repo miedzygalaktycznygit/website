@@ -6,10 +6,17 @@ from flask_login import LoginManager
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
+
+
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'abc'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+
+    # Dodanie danych uwierzytelniających do API Edamam
+    app.config['EDAMAM_APP_ID'] = '92e44a6e'  # zamień na swoje ID aplikacji Edamam
+    app.config['EDAMAM_APP_KEY'] = 'd65b68fe4df6f9e6f9c076bf761d2df8'  # zamień na swój klucz aplikacji Edamam
+
     db.init_app(app)
 
     from .views import views
